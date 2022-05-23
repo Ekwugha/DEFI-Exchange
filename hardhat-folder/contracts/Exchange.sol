@@ -51,12 +51,12 @@ contract Exchange is ERC20 {
         uint _totalSupply = totalSupply();
         // ratio of the amount of ETH that will be sent to the user
         uint ethAmount = (ethReserve * _amount) / _totalSupply;
-        // ratio of the amount of ETH that will be sent to the user
+        // ratio of the amount of CD Token that will be sent to the user
         uint cryptoDevTokenAmount = (getReserve() * _amount) / _totalSupply;
         _burn(msg.sender, _amount);
-        // Transfer `ethAmount` of Eth from user's wallet to the contract
+        // Transfer `ethAmount` of Eth from contract to the user's wallet
         payable(msg.sender).transfer(ethAmount);
-        // Transfer `cryptoDevTokenAmount` of Crypto Dev tokens from the user's wallet to the contract
+        // Transfer `cryptoDevTokenAmount` of Crypto Dev tokens from the contract to the user's wallet 
         ERC20(cryptoDevTokenAddress).transfer(msg.sender, cryptoDevTokenAmount);
         return (ethAmount, cryptoDevTokenAmount);
     }
