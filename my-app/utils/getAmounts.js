@@ -22,34 +22,46 @@ export const getEtherBalance = async (provider, address, contract = false) => {
 // gets the Crypto Dev tokens in the account of the provided `address` i.e the users address
 export const getCDTokensBalance = async (provider, address) => {
     try {
-        const tokenContract = new Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS, provider);
+        const tokenContract = new Contract(
+          TOKEN_CONTRACT_ADDRESS,
+          TOKEN_CONTRACT_ABI,
+          provider
+        );
         const balanceOfCryptoDevTokens = await tokenContract.balanceOf(address);
         return balanceOfCryptoDevTokens;
-    } catch (error) {
-        console.error(error);
-    };
+      } catch (err) {
+        console.error(err);
+      }
 };
 
 
 // gets the LP tokens in the account of the provided `address` i.e the users address
 export const getLPTokensBalance = async (provider, address) => {
     try {
-        const exchangeContract = new Contract(EXCHANGE_CONTRACT_ABI, EXCHANGE_CONTRACT_ADDRESS, provider);
+        const exchangeContract = new Contract(
+          EXCHANGE_CONTRACT_ADDRESS,
+          EXCHANGE_CONTRACT_ABI,
+          provider
+        );
         const balanceOfLPTokens = await exchangeContract.balanceOf(address);
         return balanceOfLPTokens;
-    } catch (error) {
-        console.error(error);
-    };
+      } catch (err) {
+        console.error(err);
+    }
 };
 
 
 // gets the amount of CD tokens in the exchange contract address
 export const getReserveOfCDTokens = async (provider) => {
     try {
-        const exchangeContract = new Contract(EXCHANGE_CONTRACT_ABI, EXCHANGE_CONTRACT_ADDRESS, provider);
+        const exchangeContract = new Contract(
+          EXCHANGE_CONTRACT_ADDRESS,
+          EXCHANGE_CONTRACT_ABI,
+          provider
+        );
         const reserve = await exchangeContract.getReserve();
         return reserve;
-    } catch (error) {
-        console.error(error);
-    };
+      } catch (err) {
+        console.error(err);
+    }
 };
