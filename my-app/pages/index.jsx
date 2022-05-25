@@ -123,25 +123,9 @@ export default function Home() {
 
 
 
-  // This function Returns the number of Eth/Crypto Dev tokens that can be received when the user swaps `_swapAmountWEI` amount of Eth/Crypto Dev tokens.
-  const _getAmountOfTokensReceivedFromSwap = async (_swapAmount) => {
-    try {
-        const _swapAmountWEI = utils.parseEther(_swapAmount.toString());
-        if (!_swapAmountWEI.eq(zero)) {
-          const provider = await getProviderOrSigner();
-          const _ethBalance = await getEtherBalance(provider);
-          const amountOfTokens = await getAmountOfTokensReceivedFromSwap(_swapAmountWEI, provider, ethSelected, _ethBalance, reservedCD);
-          settokenToBeReceivedAfterSwap(amountOfTokens);
-        } else {
-          settokenToBeReceivedAfterSwap(zero);
-        }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-
-
+  
+  
+  
   // This function Swaps  `swapAmountWei` of Eth or Crypto Dev tokens with `tokenToBeReceivedAfterSwap` amount of Eth or Crypto Dev tokens.
   const _swapTokens = async () => {
     try {
@@ -163,7 +147,27 @@ export default function Home() {
   };
 
 
+  
+  // This function Returns the number of Eth/Crypto Dev tokens that can be received when the user swaps `_swapAmountWEI` amount of Eth/Crypto Dev tokens.
+  const _getAmountOfTokensReceivedFromSwap = async (_swapAmount) => {
+    try {
+        const _swapAmountWEI = utils.parseEther(_swapAmount.toString());
+        if (!_swapAmountWEI.eq(zero)) {
+          const provider = await getProviderOrSigner();
+          const _ethBalance = await getEtherBalance(provider);
+          const amountOfTokens = await getAmountOfTokensReceivedFromSwap(_swapAmountWEI, provider, ethSelected, _ethBalance, reservedCD);
+          settokenToBeReceivedAfterSwap(amountOfTokens);
+        } else {
+          settokenToBeReceivedAfterSwap(zero);
+        }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
+
+  
+  
   const _addLiquidity = async () => {
     try {
       const addEtherWei = utils.parseEther(addEther.toString());
@@ -187,22 +191,7 @@ export default function Home() {
 
 
 
-  const _getTokensAfterRemove = async (_removeLPTokens) => {
-    try {
-      const provider = await getProviderOrSigner();
-      const removeLPTokenWei = utils.parseEther(_removeLPTokens);
-      const _ethBalance = await getEtherBalance(provider, null, true);
-      const cryptoDevTokenReserve = await getReserveOfCDTokens(provider);
-      const { _removeEther, _removeCD } = await getTokensAfterRemove(provider, removeLPTokenWei, _ethBalance, cryptoDevTokenReserve);
-      setRemoveEther(_removeEther);
-      setRemoveCD(_removeCD);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-
-
+  
   const _removeLiquidity = async () => {
     try {
       const signer = await getProviderOrSigner(true);
@@ -220,6 +209,24 @@ export default function Home() {
       setRemoveEther(zero);
     }
   };
+
+
+
+  
+  const _getTokensAfterRemove = async (_removeLPTokens) => {
+    try {
+      const provider = await getProviderOrSigner();
+      const removeLPTokenWei = utils.parseEther(_removeLPTokens);
+      const _ethBalance = await getEtherBalance(provider, null, true);
+      const cryptoDevTokenReserve = await getReserveOfCDTokens(provider);
+      const { _removeEther, _removeCD } = await getTokensAfterRemove(provider, removeLPTokenWei, _ethBalance, cryptoDevTokenReserve);
+      setRemoveEther(_removeEther);
+      setRemoveCD(_removeCD);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 
 
 
@@ -299,7 +306,7 @@ export default function Home() {
                   {`You will need ${utils.formatEther(addCDTokens)} Crypto Dev Tokens`}
                 </div>
                 <button className={styles.button1} onClick={_addLiquidity}>
-                  Add
+                  Add Liquidity
                 </button>
               </div>
             )}

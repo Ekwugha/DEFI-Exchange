@@ -2,7 +2,7 @@ import { Contract, providers, utils, BigNumber } from "ethers";
 import { EXCHANGE_CONTRACT_ABI, EXCHANGE_CONTRACT_ADDRESS } from "../constants";
 
 export const removeLiquidity = async (signer, removeLPTokensWei) => {
-    const exchangeContract = new Contract(EXCHANGE_CONTRACT_ABI, EXCHANGE_CONTRACT_ADDRESS, signer);
+    const exchangeContract = new Contract(EXCHANGE_CONTRACT_ADDRESS, EXCHANGE_CONTRACT_ABI, signer);
 
     const tx = await exchangeContract.removeLiquidity(removeLPTokensWei);
     await tx.wait();
@@ -11,7 +11,7 @@ export const removeLiquidity = async (signer, removeLPTokensWei) => {
 
 export const getTokensAfterRemove = async ( provider, removeLPTokenWei, _ethBalance, cryptoDevTokenReserve) => {
     try {
-        const exchangeContract = new Contract(EXCHANGE_CONTRACT_ABI, EXCHANGE_CONTRACT_ADDRESS, provider);
+        const exchangeContract = new Contract(EXCHANGE_CONTRACT_ADDRESS, EXCHANGE_CONTRACT_ABI, provider);
         // total supply of `Crypto Dev` LP tokens
         const _totalSupply = await exchangeContract.totalSupply();
 
